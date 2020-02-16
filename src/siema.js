@@ -54,6 +54,7 @@ export default class Siema {
       draggable: true,
       multipleDrag: true,
       threshold: 20,
+      resize: true,
       loop: false,
       rtl: false,
       onInit: () => {},
@@ -87,7 +88,9 @@ export default class Siema {
    */
   attachEvents() {
     // Resize element on window resize
-    window.addEventListener('resize', this.resizeHandler);
+    if (this.config.resize) {
+      window.addEventListener('resize', this.resizeHandler);
+    }
 
     // If element is draggable / swipable, add event handlers
     if (this.config.draggable) {
@@ -122,7 +125,9 @@ export default class Siema {
    * Detaches listeners from required events.
    */
   detachEvents() {
-    window.removeEventListener('resize', this.resizeHandler);
+    if (this.config.resize) {
+      window.removeEventListener('resize', this.resizeHandler);
+    }
     this.selector.removeEventListener('touchstart', this.touchstartHandler);
     this.selector.removeEventListener('touchend', this.touchendHandler);
     this.selector.removeEventListener('touchmove', this.touchmoveHandler);
